@@ -58,7 +58,7 @@ function ReportDetailPage({ selectedProject }) {
         task_description: `${workflow.description}\n\n**输入要求**：\n${workflow.input_requirements}\n\n**输出要求**：\n${workflow.output_requirements}`,
         acceptance_criteria: workflow.acceptance_criteria || '1. API调用成功\n2. 输出格式正确\n3. 性能达标',
         reward_amount: String(workflow.estimated_cost || 0),
-        visibility: 'project',
+        visibility: 'global',
       }
 
       const response = await axios.post(`${TASK_API_URL}/tasks`, taskData, {
@@ -106,7 +106,7 @@ function ReportDetailPage({ selectedProject }) {
         task_description: `**职责**：\n${role.responsibilities?.join('\n') || ''}\n\n**要求**：\n${role.requirements?.join('\n') || ''}\n\n**工作时间**：\n${role.work_hours || '待定'}`,
         acceptance_criteria: role.trial_period_criteria || '试用期1个月，考核标准：\n1. 按时完成工作\n2. 沟通顺畅\n3. 质量达标',
         reward_amount: String(role.monthly_budget || 0),
-        visibility: 'project',
+        visibility: 'global',
       }
 
       const response = await axios.post(`${TASK_API_URL}/tasks`, taskData, {

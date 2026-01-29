@@ -93,15 +93,6 @@ export const updateReportItem = (reportId, itemId, data) => {
   return api.patch(`/report/${reportId}/item/${itemId}`, data)
 }
 
-// Task Draft API
-export const createTaskDraft = (data) => {
-  return api.post('/task-draft', data)
-}
-
-export const getTaskDraft = (draftId) => {
-  return api.get(`/task-draft/${draftId}`)
-}
-
 // DID Login API
 export const getUserProfile = () => {
   const token = localStorage.getItem('token')
