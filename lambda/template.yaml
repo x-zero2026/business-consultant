@@ -1,0 +1,174 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Business Consultant Backend
+
+Globals:
+  Function:
+    Timeout: 120
+    MemorySize: 256
+    Runtime: provided.al2023
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        SUPABASE_URL: !Ref SupabaseURL
+        DB_PASSWORD: !Ref DBPassword
+        DEEPSEEK_API_KEY: !Ref DeepSeekAPIKey
+        DEEPSEEK_MODEL: !Ref DeepSeekModel
+        DEEPSEEK_MAX_TOKENS: !Ref DeepSeekMaxTokens
+        JWT_SECRET: !Ref JWTSecret
+        TASK_UI_API_URL: !Ref TaskUIAPIURL
+        DB_VERSION: "v4"
+
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,DELETE,PATCH,OPTIONS'"
+      AllowHeaders: "'Content-Type,Authorization'"
+      AllowOrigin: "'*'"
+      AllowCredentials: false
+
+Resources:
+  # Chat Function
+  ChatFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/chat/
+      Handler: bootstrap
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - "*"
+          AllowHeaders:
+            - Content-Type
+            - Authorization
+          AllowMethods:
+            - POST
+      Events:
+        Chat:
+          Type: Api
+          Properties:
+            Path: /chat
+            Method: post
+
+  # Save Report Function
+  SaveReportFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/save-report/
+      Handler: bootstrap
+      Events:
+        SaveReport:
+          Type: Api
+          Properties:
+            Path: /save-report
+            Method: post
+
+  # Get Reports Function
+  GetReportsFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/get-reports/
+      Handler: bootstrap
+      Events:
+        GetReports:
+          Type: Api
+          Properties:
+            Path: /reports
+            Method: get
+
+  # Get Report Function
+  GetReportFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/get-report/
+      Handler: bootstrap
+      Events:
+        GetReport:
+          Type: Api
+          Properties:
+            Path: /report/{id}
+            Method: get
+
+  # Delete Report Function
+  DeleteReportFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/delete-report/
+      Handler: bootstrap
+      Events:
+        DeleteReport:
+          Type: Api
+          Properties:
+            Path: /report/{id}
+            Method: delete
+
+  # Update Report Item Function
+  UpdateReportItemFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/update-report-item/
+      Handler: bootstrap
+      Events:
+        UpdateReportItem:
+          Type: Api
+          Properties:
+            Path: /report/{id}/item/{item_id}
+            Method: patch
+
+Parameters:
+  SupabaseURL:
+    Type: String
+    Description: Supabase project URL
+    Default: https://rbpsksuuvtzmathnmyxn.supabase.co
+
+  DBPassword:
+    Type: String
+    Description: Database password
+    NoEcho: true
+
+  DeepSeekAPIKey:
+    Type: String
+    Description: DeepSeek API Key
+    NoEcho: true
+
+  DeepSeekModel:
+    Type: String
+    Description: DeepSeek model name
+    Default: deepseek-chat
+
+  DeepSeekMaxTokens:
+    Type: String
+    Description: Max tokens for DeepSeek API
+    Default: "1000"
+
+  JWTSecret:
+    Type: String
+    Description: JWT secret for token validation
+    NoEcho: true
+
+  TaskUIAPIURL:
+    Type: String
+    Description: Task UI API base URL
+    Default: https://yms07x0sn0.execute-api.us-east-1.amazonaws.com/prod
+
+Outputs:
+  ApiEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  
+  ChatFunctionUrl:
+    Description: "Chat Function URL (bypasses API Gateway 29s timeout)"
+    Value: !GetAtt ChatFunctionUrl.FunctionUrl

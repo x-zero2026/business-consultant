@@ -1,0 +1,307 @@
+.report-detail-page {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+.report-meta {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.report-summary-box {
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.report-summary-box h3 {
+  color: #0050b3;
+  margin-bottom: 0.75rem;
+}
+
+.report-summary-box p {
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid #e8e8e8;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #666;
+  transition: all 0.3s;
+  margin-bottom: -2px;
+}
+
+.tab:hover {
+  color: #1890ff;
+}
+
+.tab.active {
+  color: #1890ff;
+  border-bottom-color: #1890ff;
+  font-weight: 600;
+}
+
+/* Tab Content */
+.tab-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Item Cards */
+.workflows-list,
+.roles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.item-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow 0.3s;
+}
+
+.item-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.item-header h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.item-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-high {
+  background: #fff1f0;
+  color: #ff4d4f;
+}
+
+.badge-medium {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.badge-low {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.badge-secondary {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.item-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.item-details {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detail-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row strong {
+  min-width: 100px;
+  color: #333;
+}
+
+.detail-row span {
+  color: #666;
+  flex: 1;
+}
+
+.detail-row ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  flex: 1;
+}
+
+.detail-row li {
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.detail-row pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: inherit;
+  color: #666;
+}
+
+.cost {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.item-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.status-published {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.status-draft {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+/* Budget */
+.budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.phase-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.phase-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.phase-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.phase-meta span {
+  color: #666;
+}
+
+.phase-budget {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.budget-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.budget-breakdown h4 {
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.budget-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.budget-table td:first-child {
+  color: #666;
+}
+
+.budget-table td.amount {
+  text-align: right;
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.milestones h4 {
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.milestones ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.milestones li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}

@@ -1,0 +1,17 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "business-consultant-backend"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+resolve_s3 = true
+s3_prefix = "business-consultant"
+parameter_overrides = [
+  "DatabaseURL=postgresql://user:pass@host:5432/dbname",
+  "DeepSeekAPIKey=sk-xxx",
+  "DeepSeekModel=deepseek-chat",
+  "DeepSeekMaxTokens=2000",
+  "JWTSecret=your-jwt-secret",
+  "TaskUIAPIURL=https://yms07x0sn0.execute-api.us-east-1.amazonaws.com/prod"
+]
