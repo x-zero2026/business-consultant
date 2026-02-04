@@ -18,7 +18,7 @@ Globals:
         DEEPSEEK_MAX_TOKENS: !Ref DeepSeekMaxTokens
         JWT_SECRET: !Ref JWTSecret
         TASK_UI_API_URL: !Ref TaskUIAPIURL
-        DB_VERSION: "v4"
+        DB_VERSION: "v8"
 
   Api:
     Cors:

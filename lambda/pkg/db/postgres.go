@@ -56,10 +56,11 @@ func InitDB() error {
 		encodedPassword := url.QueryEscape(password)
 
 		// Build connection string using Supabase Pooler (port 6543)
-		// IMPORTANT: statement_cache_mode=describe disables prepared statements
-		// This is required for Supabase Pooler in Transaction Mode
+		// IMPORTANT: For pgx driver with Supabase Pooler in Transaction Mode:
+		// - default_query_exec_mode=simple_protocol: Use simple protocol (no prepared statements)
+		// This prevents "prepared statement already exists" errors
 		databaseURL := fmt.Sprintf(
-			"postgresql://postgres.%s:%s@aws-1-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require&statement_cache_mode=describe",
+			"postgresql://postgres.%s:%s@aws-1-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require&default_query_exec_mode=simple_protocol",
 			projectRef,
 			encodedPassword,
 		)
