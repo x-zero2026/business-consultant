@@ -164,7 +164,10 @@ function ReportDetailPage({ selectedProject }) {
   if (loading) {
     return (
       <div className="report-detail-page">
-        <div className="loading">加载中...</div>
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>加载中...</p>
+        </div>
       </div>
     )
   }

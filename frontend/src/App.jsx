@@ -6,6 +6,7 @@ import { saveLastProject, loadLastProject } from './utils/storage'
 import ChatPage from './pages/ChatPage'
 import ReportsPage from './pages/ReportsPage'
 import ReportDetailPage from './pages/ReportDetailPage'
+import StarfieldBackground from './components/StarfieldBackground'
 import './App.css'
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <StarfieldBackground />
         {/* Header */}
         <header className="header">
           <div className="header-left">

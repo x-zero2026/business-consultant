@@ -61,7 +61,10 @@ function ReportsPage({ selectedProject }) {
   if (loading) {
     return (
       <div className="reports-page">
-        <div className="loading">加载中...</div>
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>加载中...</p>
+        </div>
       </div>
     )
   }
