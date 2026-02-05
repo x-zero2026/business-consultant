@@ -63,7 +63,7 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 
 	pool := db.GetPool()
 
-	// Convert recommendations to JSON
+	// Convert recommendations to JSON string
 	recommendationsJSON, err := json.Marshal(req.Recommendations)
 	if err != nil {
 		return response.Error(500, "Failed to marshal recommendations")
@@ -73,8 +73,8 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 	reportID := uuid.New().String()
 	_, err = pool.Exec(ctx, `
 		INSERT INTO business_reports (report_id, user_did, project_id, business_goal, recommendations)
-		VALUES ($1, $2, $3, $4, $5)
-	`, reportID, claims.DID, req.ProjectID, req.BusinessGoal, recommendationsJSON)
+		VALUES ($1, $2, $3, $4, $5::jsonb)
+	`, reportID, claims.DID, req.ProjectID, req.BusinessGoal, string(recommendationsJSON))
 
 	if err != nil {
 		return response.Error(500, fmt.Sprintf("Failed to save report: %v", err))

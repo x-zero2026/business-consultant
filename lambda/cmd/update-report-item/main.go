@@ -96,9 +96,9 @@ func handler(ctx context.Context, request events.APIGatewayProxyRequest) (events
 
 	_, err = pool.Exec(ctx, `
 		UPDATE business_reports
-		SET recommendations = $1, updated_at = NOW()
+		SET recommendations = $1::jsonb, updated_at = NOW()
 		WHERE report_id = $2
-	`, updatedRecs, reportID)
+	`, string(updatedRecs), reportID)
 
 	if err != nil {
 		return response.Error(500, fmt.Sprintf("Failed to update report: %v", err))
