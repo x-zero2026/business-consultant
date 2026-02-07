@@ -14,6 +14,8 @@ function ReportDetailPage({ selectedProject }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [activeTab, setActiveTab] = useState('workflows')
+  const [publishingWorkflow, setPublishingWorkflow] = useState(null)
+  const [publishingRole, setPublishingRole] = useState(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -44,10 +46,12 @@ function ReportDetailPage({ selectedProject }) {
   const handlePublishWorkflow = async (workflow, index) => {
     if (!confirm(`确定要发布任务"${workflow.name}"吗？`)) return
 
+    setPublishingWorkflow(index)
     try {
       const token = localStorage.getItem('token')
       if (!token) {
         alert('请先登录')
+        setPublishingWorkflow(null)
         return
       }
 
@@ -86,16 +90,20 @@ function ReportDetailPage({ selectedProject }) {
     } catch (err) {
       console.error('Publish workflow error:', err)
       alert(err.response?.data?.error || err.message || '发布任务失败')
+    } finally {
+      setPublishingWorkflow(null)
     }
   }
 
   const handlePublishRole = async (role, index) => {
     if (!confirm(`确定要发布招聘任务"${role.title}"吗？`)) return
 
+    setPublishingRole(index)
     try {
       const token = localStorage.getItem('token')
       if (!token) {
         alert('请先登录')
+        setPublishingRole(null)
         return
       }
 
@@ -134,6 +142,8 @@ function ReportDetailPage({ selectedProject }) {
     } catch (err) {
       console.error('Publish role error:', err)
       alert(err.response?.data?.error || err.message || '发布任务失败')
+    } finally {
+      setPublishingRole(null)
     }
   }
 
@@ -288,8 +298,16 @@ function ReportDetailPage({ selectedProject }) {
                     <button 
                       className="btn btn-primary"
                       onClick={() => handlePublishWorkflow(workflow, index)}
+                      disabled={publishingWorkflow === index}
                     >
-                      发布任务
+                      {publishingWorkflow === index ? (
+                        <>
+                          <span className="spinner-small"></span>
+                          发布中...
+                        </>
+                      ) : (
+                        '发布任务'
+                      )}
                     </button>
                   )}
                 </div>
@@ -363,8 +381,16 @@ function ReportDetailPage({ selectedProject }) {
                     <button 
                       className="btn btn-primary"
                       onClick={() => handlePublishRole(role, index)}
+                      disabled={publishingRole === index}
                     >
-                      发布招聘
+                      {publishingRole === index ? (
+                        <>
+                          <span className="spinner-small"></span>
+                          发布中...
+                        </>
+                      ) : (
+                        '发布招聘'
+                      )}
                     </button>
                   )}
                 </div>
