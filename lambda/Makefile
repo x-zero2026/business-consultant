@@ -44,8 +44,5 @@ build-DeleteReportFunction:
 build-UpdateReportItemFunction:
 	cd $(LAMBDA_ROOT) && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags lambda.norpc -o $(ARTIFACTS_DIR)/bootstrap ./cmd/update-report-item/main.go
 
-build-CreateTaskDraftFunction:
-	cd $(LAMBDA_ROOT) && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags lambda.norpc -o $(ARTIFACTS_DIR)/bootstrap ./cmd/create-task-draft/main.go
-
-build-GetTaskDraftFunction:
-	cd $(LAMBDA_ROOT) && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags lambda.norpc -o $(ARTIFACTS_DIR)/bootstrap ./cmd/get-task-draft/main.go
+build-IdentifyProfessionTagsFunction:
+	cd $(LAMBDA_ROOT) && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -tags lambda.norpc -o $(ARTIFACTS_DIR)/bootstrap ./cmd/identify-profession-tags/main.go

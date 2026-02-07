@@ -128,6 +128,21 @@ Resources:
             Path: /report/{id}/item/{item_id}
             Method: patch
 
+  # Identify Profession Tags Function
+  IdentifyProfessionTagsFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      CodeUri: cmd/identify-profession-tags/
+      Handler: bootstrap
+      Events:
+        IdentifyTags:
+          Type: Api
+          Properties:
+            Path: /identify-profession-tags
+            Method: post
+
 Parameters:
   SupabaseURL:
     Type: String
