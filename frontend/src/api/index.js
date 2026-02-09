@@ -115,7 +115,7 @@ export const listProjects = () => {
 
 // Profession Tags API
 export const identifyProfessionTags = (description) => {
-  return api.post('/identify-profession-tags', { description })
+  return api.post('/identify-profession-tags', { task_description: description })
 }
 
 export default api

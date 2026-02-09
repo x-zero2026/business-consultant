@@ -62,8 +62,8 @@ function ReportDetailPage({ selectedProject }) {
       try {
         console.log('Identifying profession tags for workflow...')
         const tagsResponse = await identifyProfessionTags(fullDescription)
-        if (tagsResponse.success && tagsResponse.data?.tags) {
-          professionTags = tagsResponse.data.tags
+        if (tagsResponse.success && tagsResponse.data?.profession_tags) {
+          professionTags = tagsResponse.data.profession_tags
           console.log('Identified tags:', professionTags)
         }
       } catch (err) {
@@ -131,8 +131,8 @@ function ReportDetailPage({ selectedProject }) {
       try {
         console.log('Identifying profession tags for role...')
         const tagsResponse = await identifyProfessionTags(fullDescription)
-        if (tagsResponse.success && tagsResponse.data?.tags) {
-          professionTags = tagsResponse.data.tags
+        if (tagsResponse.success && tagsResponse.data?.profession_tags) {
+          professionTags = tagsResponse.data.profession_tags
           console.log('Identified tags:', professionTags)
         }
       } catch (err) {
