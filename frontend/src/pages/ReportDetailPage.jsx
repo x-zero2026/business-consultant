@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { getReport, updateReportItem } from '../api'
+import { getReport, updateReportItem, identifyProfessionTags } from '../api'
 import './ReportDetailPage.css'
 
 const TASK_UI_URL = import.meta.env.VITE_TASK_UI_URL
@@ -55,7 +55,23 @@ function ReportDetailPage({ selectedProject }) {
         return
       }
 
-      // Create task directly on task center
+      // Step 1: Identify profession tags from task description
+      const fullDescription = `${workflow.name}\n${workflow.description}\n输入要求：${workflow.input_requirements}\n输出要求：${workflow.output_requirements}`
+      
+      let professionTags = []
+      try {
+        console.log('Identifying profession tags for workflow...')
+        const tagsResponse = await identifyProfessionTags(fullDescription)
+        if (tagsResponse.success && tagsResponse.data?.tags) {
+          professionTags = tagsResponse.data.tags
+          console.log('Identified tags:', professionTags)
+        }
+      } catch (err) {
+        console.error('Failed to identify profession tags:', err)
+        // Continue without tags if identification fails
+      }
+
+      // Step 2: Create task with profession tags
       const taskData = {
         project_id: selectedProject?.project_id,
         task_name: `开发AI工作流：${workflow.name}`,
@@ -63,6 +79,7 @@ function ReportDetailPage({ selectedProject }) {
         acceptance_criteria: workflow.acceptance_criteria || '1. API调用成功\n2. 输出格式正确\n3. 性能达标',
         reward_amount: String(workflow.estimated_cost || 0),
         visibility: 'global',
+        profession_tags: professionTags,
       }
 
       const response = await axios.post(`${TASK_API_URL}/tasks`, taskData, {
@@ -107,7 +124,23 @@ function ReportDetailPage({ selectedProject }) {
         return
       }
 
-      // Create task directly on task center
+      // Step 1: Identify profession tags from role description
+      const fullDescription = `${role.title}\n职责：${role.responsibilities?.join(', ') || ''}\n要求：${role.requirements?.join(', ') || ''}`
+      
+      let professionTags = []
+      try {
+        console.log('Identifying profession tags for role...')
+        const tagsResponse = await identifyProfessionTags(fullDescription)
+        if (tagsResponse.success && tagsResponse.data?.tags) {
+          professionTags = tagsResponse.data.tags
+          console.log('Identified tags:', professionTags)
+        }
+      } catch (err) {
+        console.error('Failed to identify profession tags:', err)
+        // Continue without tags if identification fails
+      }
+
+      // Step 2: Create task with profession tags
       const taskData = {
         project_id: selectedProject?.project_id,
         task_name: `招聘：${role.title}`,
@@ -115,6 +148,7 @@ function ReportDetailPage({ selectedProject }) {
         acceptance_criteria: role.trial_period_criteria || '试用期1个月，考核标准：\n1. 按时完成工作\n2. 沟通顺畅\n3. 质量达标',
         reward_amount: String(role.monthly_budget || 0),
         visibility: 'global',
+        profession_tags: professionTags,
       }
 
       const response = await axios.post(`${TASK_API_URL}/tasks`, taskData, {
